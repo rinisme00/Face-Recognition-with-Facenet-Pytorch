@@ -10,7 +10,13 @@ Webcam: OpenCV
 Works on GPU (CUDA) or CPU.
 Recommended Python: 3.10.x (tested with 3.10.11)
 
-# 1. Create the environment
+# 1. Cloning
+```
+git clone https://github.com/rinisme00/Face-Recognition-with-Facenet-Pytorch
+cd Face-Recognition-with-Facenet-Pytorch
+```
+
+# 2. Create the environment
 Create & activate env (Python 3.10):
 ```
 conda create -n <env_name> python=3.10 -y
@@ -31,9 +37,9 @@ pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision
 ```
 
 Install the libraries
-
+```
 pip install -r requirements.txt
-
+```
 CPU only:
 ```
 conda create -n <env_name> python=3.10 -y
@@ -42,7 +48,7 @@ pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision t
 pip install -r requirements.txt
 ```
 
-# 2. Usage:
+# 3. Usage:
 
 Shows live webcam with red bounding boxes (and optional landmarks if your script enables them).
 ```
@@ -50,7 +56,7 @@ python face_detect.py
 ```
 Press ESC to quit.
 
-If you have multiple cameras, change the index in cv2.VideoCapture(0) to 1, 2, …
+If you have multiple cameras, change the index in **cv2.VideoCapture(0)** to 1, 2, …
 
 Capturing frames from webcam for facelist.
 ```
@@ -59,9 +65,9 @@ python face_capture.py
 Randomly capture 50 images when webcam is enabled.
 
 Update person/faces:
-Reads all images from data/test_images/<person>/*.jpg|*.jpeg|*.png, computes embeddings via InceptionResnetV1, averages per person, and saves:
+Reads all images from **data/test_images/<person>/*.jpg|*.jpeg|*.png**, computes embeddings via InceptionResnetV1, averages per person, and saves:
 
-data/faceslist.pth (GPU run) or data/faceslistCPU.pth (CPU run)
+**data/faceslist.pth** (GPU run) or **data/faceslistCPU.pth** (CPU run)
 
 data/usernames.npy (array of person names)
 ```
