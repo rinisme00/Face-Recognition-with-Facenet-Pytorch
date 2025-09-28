@@ -24,7 +24,7 @@ def main():
     args = ap.parse_args()
 
     device = torch.device("cuda:0" if (torch.cuda.is_available() and not args.no_gpu) else "cpu")
-    mtcnn = MTCNN(keep_all=True, device=device, image_size=args.image_size, margin=0)
+    mtcnn = MTCNN(keep_all=True, device=device, image_size=args.image_size, margin=0, post_process=False)
 
     in_path = Path(args.input); out_dir = Path(args.output); out_dir.mkdir(parents=True, exist_ok=True)
     images = list_images(in_path, args.recursive)
@@ -49,10 +49,13 @@ def main():
             if probs is not None and probs[i] is not None and probs[i] < args.min_conf:
                 continue
             # face: Tensor [3,h,w] -> numpy HWC BGR để cv2.imwrite
-            face_np = (face.permute(1,2,0).clamp(0,1).numpy()*255).astype("uint8")
+            face_np = face.permute(1,2,0).cpu().numpy()
+            # Nếu face về 0..1, nhân 255; nếu đã 0..255 thì thôi:
+            if face_np.max() <= 1.0: 
+                face_np = face_np * 255.0
+            face_np = np.clip(face_np, 0, 255).astype("uint8")
             face_bgr = cv2.cvtColor(face_np, cv2.COLOR_RGB2BGR)
-            out_name = f"{p.stem}_face{i+1}.png"
-            cv2.imwrite(str(out_dir / out_name), face_bgr)
+            cv2.imwrite(str(out_path), face_bgr)
             print(f"[SAVE] {out_dir/out_name}")
 
     print("[INFO] Done.")
