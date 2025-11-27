@@ -8,7 +8,13 @@ Embeddings: InceptionResnetV1 (pretrained on casia-webface)
 Webcam: OpenCV
 
 Works on GPU (CUDA) or CPU.
-Recommended Python: 3.10.x (tested with 3.10.11)
+Recommended Python: 3.10.x (tested with 3.10.18)
+
+# 0. Cloning into repository
+Suppose that you want to use our code for demo:
+```
+git clone https://github.com/rinisme00/Face-Recognition-with-Facenet-Pytorch.git
+```
 
 # 1. Create the environment
 Create & activate env (Python 3.10):
