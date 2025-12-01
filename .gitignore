@@ -1,2 +1,4 @@
 /FaceNet
 /Faces_for_FaceNet
+/__pycache__
+/FaceNet_VectorDB
