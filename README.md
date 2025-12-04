@@ -74,17 +74,25 @@ Example:
 python facenet_pipeline.py build-index --dataset-dir <your_faces_path> --output-dir FaceNet_VectorDB --det-conf 0.90
 ```
 
-# 3. Querying the database from CLI
-Once the index is built, you can query with another image:
+# 3. Inference
+
+## 3.1. Query with top-k images with single-face detection
 ```
-python facenet_pipeline.py query index-dir FaceNet_VectorDBimage <path to query.jpg> top-k 5
+python test_recognition.py --source image --faces single --image-paths <input path here> --top-k <input integer>
 ```
 
-Example:
+## 3.2. Query with top-k images with multi-faces detection
 ```
-python facenet_pipeline.py query \
-    --index-dir FaceNet_VectorDB \
-    --image test_images/alice_test.jpg \
-    --top-k 5 \
-    --recog-thresh 0.65
+python test_recognition.py --source image --faces multi --image-paths <input path here> --top-k <input integer>
+```
+
+## 3.3. Test with livecam
+Single-face detection
+```
+python test_recognition.py --source livecam --faces single --camera-id <your camera or webcam index> --top-k <input integer>
+```
+
+Multi-faces detection
+```
+python test_recognition.py --source livecam --faces multi --camera-id <your camera or webcam index> --top-k <input integer>
 ```
